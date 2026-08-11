@@ -212,3 +212,53 @@ This is an example only. A valid environment may produce no output, one route, o
 ### Files
 
 - `show_default_route.sh`: displays the configured default IPv4 route(s) using `ip -4 route show default`.
+
+## 4. Resolve a Hostname Through the System Database
+
+### Objective
+
+Use the operating system's configured hostname-resolution mechanism to retrieve host information.
+
+### Description
+
+`resolve_hostname.sh` is a Bash script that receives exactly one hostname as its first positional argument and queries the system host database for that hostname.
+
+The script relies on `getent hosts`, which looks up the hostname through the Name Service Switch (NSS) configuration of the environment, whatever sources it lists (such as `/etc/hosts` or DNS). The complete result is printed as returned, without adding, removing, reordering, or reformatting entries.
+
+### Usage
+
+```
+./resolve_hostname.sh <hostname>
+```
+
+Example:
+
+```
+./resolve_hostname.sh www.example.com
+```
+
+### Input
+
+One hostname supplied as the first positional argument.
+
+### Output
+
+The complete host-database result for the supplied hostname, with no additional text.
+
+Example:
+
+```
+::1             localhost ip6-localhost ip6-loopback
+```
+
+This is an example only. The addresses, aliases, number of lines, and order depend on the environment's hostname databases and Name Service Switch configuration.
+
+### Constraints
+
+- The system host database is used rather than an external HTTP service.
+- Neither the hostname nor expected addresses are hardcoded.
+- All returned entries and their original ordering are preserved.
+
+### Files
+
+- `resolve_hostname.sh`: resolves a hostname through the system host database using `getent hosts`.
