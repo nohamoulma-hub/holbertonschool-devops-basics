@@ -168,3 +168,47 @@ This is an example only. The selected address and timing values will differ betw
 ### Files
 
 - `test_loopback.sh`: discovers the host-scope IPv4 address and pings it four times using `ip`, `tr`, `cut`, `head`, and `ping`.
+
+## 3. Show the Default IPv4 Route
+
+### Objective
+
+Inspect the route or routes used for IPv4 destinations that do not match a more specific route.
+
+### Description
+
+`show_default_route.sh` is a Bash script that displays every configured default IPv4 route in the current environment.
+
+The script relies on `ip -4 route show default`, which prints the default IPv4 route table in the format and ordering provided by the `iproute2` utility, without any additional sorting, reformatting, or field extraction. If no default IPv4 route is configured, the command produces no standard output and still exits successfully.
+
+### Usage
+
+```
+./show_default_route.sh
+```
+
+### Input
+
+Not applicable.
+
+### Output
+
+Zero or more default IPv4 route lines, with no labels, headings, or fallback messages added.
+
+Example:
+
+```
+default via 10.42.0.1 dev eth1
+```
+
+This is an example only. A valid environment may produce no output, one route, or multiple default routes with additional attributes.
+
+### Constraints
+
+- Only IPv4 default routes are included.
+- No gateway address or interface name is hardcoded.
+- Individual route fields are not extracted or reformatted.
+
+### Files
+
+- `show_default_route.sh`: displays the configured default IPv4 route(s) using `ip -4 route show default`.
